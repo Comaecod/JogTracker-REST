@@ -14,12 +14,16 @@ public interface JogService {
 
 	JogDTO getOneJogDataById(Integer jogId);
 
-//	List<JogDTO> getAllJogData(Integer pageNumber, Integer pageSize); @deprecated, using payload class for metadata for pagination
-	AllJogPaginationResponse getAllJogData(Integer pageNumber, Integer pageSize);
+	// Get all jog data - Paginated(with metadata of pages) - @Comaecod
+	// @deprecated, using payload class for metadata for pagination
+	// List<JogDTO> getAllJogData(Integer pageNumber, Integer pageSize);
+	AllJogPaginationResponse getAllJogData(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection);
 
-	List<JogDTO> getJogDataByUser(String userId); // Get the jog data by user
+	// Get all jog data by User - Paginated(with metadata of pages) - @Comaecod
+	AllJogPaginationResponse getJogDataByUser(String userId, Integer pageNumber, Integer pageSize);
 
-	List<JogDTO> getJogDataByCategory(Integer categoryId); // Get the jog data by category
+	// Get the jog data by category
+	List<JogDTO> getJogDataByCategory(Integer categoryId);
 
 	List<JogDTO> getAllJogDataBySearch(String keyword);
 

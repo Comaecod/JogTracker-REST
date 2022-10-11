@@ -1,9 +1,16 @@
 package com.comaecod.jogtracker.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.comaecod.jogtracker.config.AppConstantsDefaults;
 import com.comaecod.jogtracker.payloads.AllJogPaginationResponse;
 import com.comaecod.jogtracker.payloads.ApiResponse;
 import com.comaecod.jogtracker.payloads.JogDTO;
+import com.comaecod.jogtracker.services.FileService;
 import com.comaecod.jogtracker.services.JogService;
 
 @RestController
@@ -25,7 +35,13 @@ import com.comaecod.jogtracker.services.JogService;
 public class JogController {
 
 	@Autowired
-	JogService jogService;
+	private JogService jogService;
+
+	@Autowired
+	private FileService fileService;
+
+	@Value("${project.image}")
+	private String path;
 
 	@PostMapping("/user/{userId}/category/{categoryId}/jogdata")
 	public ResponseEntity<JogDTO> createJogData(@RequestBody JogDTO dto, @PathVariable String userId,
@@ -34,10 +50,13 @@ public class JogController {
 		return new ResponseEntity<JogDTO>(createdJogData, HttpStatus.CREATED);
 	}
 
+	// Get all jog data by user - Paginated(with metadata of pages) - @Comaecod
 	@GetMapping("/user/{userId}/jogdata")
-	public ResponseEntity<List<JogDTO>> getJogsByUser(@PathVariable String userId) {
-		List<JogDTO> jogDataByUser = jogService.getJogDataByUser(userId);
-		return new ResponseEntity<List<JogDTO>>(jogDataByUser, HttpStatus.OK);
+	public ResponseEntity<AllJogPaginationResponse> getJogsByUser(@PathVariable String userId,
+			@RequestParam(value = "pageNumber", defaultValue = AppConstantsDefaults.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstantsDefaults.PAGE_SIZE, required = false) Integer pageSize) {
+		AllJogPaginationResponse allJogdataByUser = jogService.getJogDataByUser(userId, pageNumber, pageSize);
+		return new ResponseEntity<AllJogPaginationResponse>(allJogdataByUser, HttpStatus.OK);
 	}
 
 	@GetMapping("/category/{categoryId}/jogdata")
@@ -46,12 +65,14 @@ public class JogController {
 		return new ResponseEntity<List<JogDTO>>(jogDataByCategory, HttpStatus.OK);
 	}
 
-	// Pagination - @Comaecod (with metadata about pages)
+	// Get all jog data - Paginated(with metadata of pages) - @Comaecod
 	@GetMapping("/jogdata")
 	public ResponseEntity<AllJogPaginationResponse> getAllJogData(
-			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-		AllJogPaginationResponse allJogData = jogService.getAllJogData(pageNumber, pageSize);
+			@RequestParam(value = "pageNumber", defaultValue = AppConstantsDefaults.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstantsDefaults.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstantsDefaults.SORT_FIELD, required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = AppConstantsDefaults.SORT_DIRECTION, required = false) String sortDirection) {
+		AllJogPaginationResponse allJogData = jogService.getAllJogData(pageNumber, pageSize, sortBy, sortDirection);
 		return new ResponseEntity<AllJogPaginationResponse>(allJogData, HttpStatus.OK);
 	}
 
@@ -71,6 +92,31 @@ public class JogController {
 	public ResponseEntity<JogDTO> updateJogData(@RequestBody JogDTO dto, @PathVariable Integer jogId) {
 		JogDTO updateJogData = jogService.updateJogData(dto, jogId);
 		return new ResponseEntity<JogDTO>(updateJogData, HttpStatus.OK);
+	}
+
+	@GetMapping("/jogdata/search/{keyword}")
+	public ResponseEntity<List<JogDTO>> searchJogByLocation(@PathVariable String keyword) {
+		List<JogDTO> result = jogService.getAllJogDataBySearch(keyword);
+		return new ResponseEntity<List<JogDTO>>(result, HttpStatus.OK);
+	}
+
+	// Post Image Upload
+	@PostMapping("/jogdata/image/upload/{jogId}")
+	public ResponseEntity<JogDTO> uploadJogLocationImage(@RequestParam("image") MultipartFile image,
+			@PathVariable Integer jogId) throws IOException {
+
+		JogDTO jogdataDTO = jogService.getOneJogDataById(jogId);
+		String fileName = fileService.uploadImage(path, image);
+		jogdataDTO.setLocationImg(fileName);
+		JogDTO updatedJogData = jogService.updateJogData(jogdataDTO, jogId);
+		return new ResponseEntity<JogDTO>(updatedJogData, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/jogdata/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+	public void downloadImage(@PathVariable String imageName, HttpServletResponse response) throws IOException {
+		InputStream resource = fileService.getResource(path, imageName);
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		StreamUtils.copy(resource, response.getOutputStream());
 	}
 
 }

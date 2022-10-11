@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.comaecod.jogtracker.entities.Category;
@@ -78,12 +79,24 @@ public class JogServiceImpl implements JogService {
 		return modelMapper.map(jogData, JogDTO.class);
 	}
 
-	// Pagination - @Comaecod (with metadata about pages)
+	// Get all jog data - Paginated(with metadata of pages) - @Comaecod + Sorting
 	@Override
-	public AllJogPaginationResponse getAllJogData(Integer pageNumber, Integer pageSize) {
-//		int pageSize = 5;
-//		int pageNumber = 1;
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+	public AllJogPaginationResponse getAllJogData(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDirection) {
+//		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)); //default -> ascending
+//		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()); // descending
+
+//		Sort sort = null;
+//		if (sortDirection.equalsIgnoreCase("asc")) {
+//			sort = Sort.by(sortBy).ascending();
+//		} else if (sortDirection.equalsIgnoreCase("desc")) {
+//			sort = Sort.by(sortBy).descending();
+//		}
+
+		// Or using ternary oprator
+		Sort sort = sortDirection.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
 		Page<Jog> jogDataInPage = jogRepo.findAll(pageable);
 		List<Jog> allJogData = jogDataInPage.getContent();
 
@@ -102,14 +115,38 @@ public class JogServiceImpl implements JogService {
 		return response;
 	}
 
+	// Get all jog data by user - Paginated(with metadata of pages) - @Comaecod
 	@Override
-	public List<JogDTO> getJogDataByUser(String userId) {
+	public AllJogPaginationResponse getJogDataByUser(String userId, Integer pageNumber, Integer pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
 		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
-		List<Jog> jogs = jogRepo.findByUser(user);
-		List<JogDTO> jogDTOs = jogs.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
+		Page<Jog> jogsInPage = jogRepo.findByUser(user, pageable);
+		List<Jog> allJogDataByUser = jogsInPage.getContent();
+		List<JogDTO> jogDTOsByUser = allJogDataByUser.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
 				.collect(Collectors.toList());
-		return jogDTOs;
+		AllJogPaginationResponse response = new AllJogPaginationResponse();
+
+		response.setContent(jogDTOsByUser);
+		response.setPageNumber(jogsInPage.getNumber());
+		response.setPageSize(jogsInPage.getSize());
+		response.setTotalRecords(jogsInPage.getTotalElements());
+		response.setTotalPages(jogsInPage.getTotalPages());
+		response.setLastPage(jogsInPage.isLast());
+
+		return response;
 	}
+
+	/*
+	 * Original getJogDataByUser()
+	 * 
+	 * @Override public List<JogDTO> getJogDataByUser(String userId) { User user =
+	 * userRepo.findById(userId).orElseThrow(() -> new
+	 * ResourceNotFoundException("User", "id", userId)); List<Jog> jogs =
+	 * jogRepo.findByUser(user); List<JogDTO> jogDTOs = jogs.stream().map(jog ->
+	 * modelMapper.map(jog, JogDTO.class)) .collect(Collectors.toList()); return
+	 * jogDTOs; }
+	 */
 
 	@Override
 	public List<JogDTO> getJogDataByCategory(Integer categoryId) {
@@ -123,8 +160,11 @@ public class JogServiceImpl implements JogService {
 
 	@Override
 	public List<JogDTO> getAllJogDataBySearch(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+//		List<Jog> jogData = jogRepo.findByLocationContaining("%" + keyword + "%");
+		List<Jog> jogData = jogRepo.findByLocationContaining(keyword);
+		List<JogDTO> jogDataDTOs = jogData.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
+				.collect(Collectors.toList());
+		return jogDataDTOs;
 	}
 
 }
