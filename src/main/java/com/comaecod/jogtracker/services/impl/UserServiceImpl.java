@@ -5,11 +5,15 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.comaecod.jogtracker.config.AppConstantsDefaults;
+import com.comaecod.jogtracker.entities.Role;
 import com.comaecod.jogtracker.entities.User;
 import com.comaecod.jogtracker.exceptions.ResourceNotFoundException;
 import com.comaecod.jogtracker.payloads.UserDTO;
+import com.comaecod.jogtracker.repositories.RoleRepo;
 import com.comaecod.jogtracker.repositories.UserRepo;
 import com.comaecod.jogtracker.services.UserService;
 
@@ -35,6 +39,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
 
 	public User DTOToUser(UserDTO dto) {
 		User user = modelMapper.map(dto, User.class);
@@ -85,6 +95,23 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(String userId) {
 		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		userRepo.delete(user);
+	}
+
+	@Override
+	public UserDTO registerUser(UserDTO userDTO) {
+		User user = modelMapper.map(userDTO, User.class);
+		
+		// Encoded the password
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		// 
+		Role role = roleRepo.findById(AppConstantsDefaults.ROLE_USER).get();
+		
+		user.getRoles().add(role);
+		
+		User newUser = userRepo.save(user);
+		
+		return modelMapper.map(newUser, UserDTO.class);
 	}
 
 }

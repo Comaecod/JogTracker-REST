@@ -1,5 +1,8 @@
 package com.comaecod.jogtracker.payloads;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -31,4 +34,6 @@ public class UserDTO {
 
 	@NotEmpty(message = "About must not be empty!")
 	private String about;
+	
+	private Set<RoleDTO> roles = new HashSet<>();
 }

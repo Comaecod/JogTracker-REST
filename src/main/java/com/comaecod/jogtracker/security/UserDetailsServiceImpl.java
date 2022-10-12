@@ -11,7 +11,7 @@ import com.comaecod.jogtracker.exceptions.ResourceNotFoundException;
 import com.comaecod.jogtracker.repositories.UserRepo;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserRepo userRepo;
