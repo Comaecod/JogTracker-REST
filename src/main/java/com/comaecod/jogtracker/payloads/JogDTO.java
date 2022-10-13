@@ -16,13 +16,17 @@ import lombok.Setter;
 public class JogDTO {
 
 	private Integer jogId;
+	
 	private String locationImg;
+	
 	private Date datetime;
 
 	@NotBlank(message = "Location cannot be blank!")
 	private String location;
 
 	private UserDTO user;
+	
 	private CategoryDTO category;
+	
 	private Set<IntakeDTO> intake = new HashSet<>();
 }

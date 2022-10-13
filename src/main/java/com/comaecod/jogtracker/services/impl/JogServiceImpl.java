@@ -41,66 +41,87 @@ public class JogServiceImpl implements JogService {
 	@Override
 	public JogDTO createJogData(JogDTO dto, String userId, Integer categoryId) {
 
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = userRepo
+				.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		
 		Category category = categoryRepo.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "id", Integer.toString(categoryId)));
+		
 		Jog jog = modelMapper.map(dto, Jog.class);
+		
 		jog.setLocationImg("default.png");
 		jog.setDatetime(new Date());
 		jog.setUser(user);
 		jog.setCategory(category);
 
 		Jog newJog = jogRepo.save(jog);
+		
 		return modelMapper.map(newJog, JogDTO.class);
 
 	}
 
 	@Override
 	public JogDTO updateJogData(JogDTO dto, Integer jogId) {
-		Jog jogData = jogRepo.findById(jogId)
+		Jog jogData = jogRepo
+				.findById(jogId)
 				.orElseThrow(() -> new ResourceNotFoundException("Jog Data", "id", Integer.toString(jogId)));
+		
 		jogData.setLocation(dto.getLocation());
 		jogData.setLocationImg(dto.getLocationImg());
+		
 		Jog updatedJog = jogRepo.save(jogData);
+		
 		return modelMapper.map(updatedJog, JogDTO.class);
 	}
 
 	@Override
 	public void deleteJogData(Integer jogId) {
-		Jog jogData = jogRepo.findById(jogId)
+		Jog jogData = jogRepo
+				.findById(jogId)
 				.orElseThrow(() -> new ResourceNotFoundException("Jog Data", "id", Integer.toString(jogId)));
+		
 		jogRepo.delete(jogData);
 	}
 
 	@Override
 	public JogDTO getOneJogDataById(Integer jogId) {
-		Jog jogData = jogRepo.findById(jogId)
+		Jog jogData = jogRepo
+				.findById(jogId)
 				.orElseThrow(() -> new ResourceNotFoundException("Jog Data", "id", Integer.toString(jogId)));
 		return modelMapper.map(jogData, JogDTO.class);
 	}
 
-	// Get all jog data - Paginated(with metadata of pages) - @Comaecod + Sorting
+	// Get ALL jog data - Paginated(with metadata of pages) + Sorting - @Comaecod 
 	@Override
 	public AllJogPaginationResponse getAllJogData(Integer pageNumber, Integer pageSize, String sortBy,
 			String sortDirection) {
-//		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)); //default -> ascending
-//		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()); // descending
+		/*
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)); //default -> ascending
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()); // descending
+	
+			Sort sort = null;
+			if (sortDirection.equalsIgnoreCase("asc")) {
+				sort = Sort.by(sortBy).ascending();
+			} else if (sortDirection.equalsIgnoreCase("desc")) {
+				sort = Sort.by(sortBy).descending();
+			}
+		*/
 
-//		Sort sort = null;
-//		if (sortDirection.equalsIgnoreCase("asc")) {
-//			sort = Sort.by(sortBy).ascending();
-//		} else if (sortDirection.equalsIgnoreCase("desc")) {
-//			sort = Sort.by(sortBy).descending();
-//		}
-
-		// Or using ternary oprator
-		Sort sort = sortDirection.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+		// SORTING - ternary operator
+		Sort sort = sortDirection.equalsIgnoreCase("desc") 
+				? Sort.by(sortBy).descending() 
+						: Sort.by(sortBy).ascending();
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+		
 		Page<Jog> jogDataInPage = jogRepo.findAll(pageable);
+		
 		List<Jog> allJogData = jogDataInPage.getContent();
 
-		List<JogDTO> alljogDTOs = allJogData.stream().map(jogData -> modelMapper.map(jogData, JogDTO.class))
+		List<JogDTO> alljogDTOs = allJogData
+				.stream()
+				.map(jogData -> modelMapper.map(jogData, JogDTO.class))
 				.collect(Collectors.toList());
 
 		AllJogPaginationResponse response = new AllJogPaginationResponse();
@@ -118,13 +139,22 @@ public class JogServiceImpl implements JogService {
 	// Get all jog data by user - Paginated(with metadata of pages) - @Comaecod
 	@Override
 	public AllJogPaginationResponse getJogDataByUser(String userId, Integer pageNumber, Integer pageSize) {
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = userRepo
+				.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		
 		Page<Jog> jogsInPage = jogRepo.findByUser(user, pageable);
+		
 		List<Jog> allJogDataByUser = jogsInPage.getContent();
-		List<JogDTO> jogDTOsByUser = allJogDataByUser.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
+		
+		List<JogDTO> jogDTOsByUser = allJogDataByUser
+				.stream()
+				.map(jog -> modelMapper.map(jog, JogDTO.class))
 				.collect(Collectors.toList());
+		
 		AllJogPaginationResponse response = new AllJogPaginationResponse();
 
 		response.setContent(jogDTOsByUser);
@@ -137,33 +167,31 @@ public class JogServiceImpl implements JogService {
 		return response;
 	}
 
-	/*
-	 * Original getJogDataByUser()
-	 * 
-	 * @Override public List<JogDTO> getJogDataByUser(String userId) { User user =
-	 * userRepo.findById(userId).orElseThrow(() -> new
-	 * ResourceNotFoundException("User", "id", userId)); List<Jog> jogs =
-	 * jogRepo.findByUser(user); List<JogDTO> jogDTOs = jogs.stream().map(jog ->
-	 * modelMapper.map(jog, JogDTO.class)) .collect(Collectors.toList()); return
-	 * jogDTOs; }
-	 */
-
 	@Override
 	public List<JogDTO> getJogDataByCategory(Integer categoryId) {
-		Category category = categoryRepo.findById(categoryId)
+		Category category = categoryRepo
+				.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "id", Integer.toString(categoryId)));
+		
 		List<Jog> jogs = jogRepo.findByCategory(category);
+		
 		List<JogDTO> jogDTOs = jogs.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
 				.collect(Collectors.toList());
+		
 		return jogDTOs;
 	}
 
 	@Override
 	public List<JogDTO> getAllJogDataBySearch(String keyword) {
-//		List<Jog> jogData = jogRepo.findByLocationContaining("%" + keyword + "%");
+		
+		// List<Jog> jogData = jogRepo.findByLocationContaining("%" + keyword + "%");
 		List<Jog> jogData = jogRepo.findByLocationContaining(keyword);
-		List<JogDTO> jogDataDTOs = jogData.stream().map(jog -> modelMapper.map(jog, JogDTO.class))
+		
+		List<JogDTO> jogDataDTOs = jogData
+				.stream()
+				.map(jog -> modelMapper.map(jog, JogDTO.class))
 				.collect(Collectors.toList());
+		
 		return jogDataDTOs;
 	}
 

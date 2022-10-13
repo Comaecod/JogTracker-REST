@@ -27,6 +27,7 @@ public class JogTrackerApplication implements CommandLineRunner {
 		SpringApplication.run(JogTrackerApplication.class, args);
 	}
 
+	// ModelMapper Bean for all switching from Entities to DTO
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
@@ -34,8 +35,10 @@ public class JogTrackerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		System.out.println("@comaecod: " + passwordEncoder.encode("Password@01"));
+
 		try {
+
+			// Creating Roles -> ADMIN & USER
 			Role role1 = new Role();
 			role1.setId(AppConstantsDefaults.ROLE_ADMIN);
 			role1.setName("ROLE_ADMIN");
@@ -45,13 +48,14 @@ public class JogTrackerApplication implements CommandLineRunner {
 			role2.setName("ROLE_USER");
 
 			List<Role> roles = List.of(role1, role2);
-			
+
 			List<Role> result = roleRepo.saveAll(roles);
 
-//			result.forEach(r -> System.out.println(r.getName()));
+			result.forEach(r -> System.out.println(r.getName())); //
+			System.out.println("@comaecod: " + passwordEncoder.encode("Password@01"));
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("@comaecod: [MAIN] -> " + e);
 		}
 
 	}

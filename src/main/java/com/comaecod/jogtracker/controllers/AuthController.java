@@ -36,8 +36,17 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 
+	// POST -> REGISTER API (for all users)
+	@PostMapping("/register")
+	public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+		UserDTO registeredUser = userService.registerUser(userDTO);
+		return new ResponseEntity<UserDTO>(registeredUser, HttpStatus.CREATED);
+	}
+	
+	// POST -> LOGIN API (for all users)
 	@PostMapping("/login")
-	public ResponseEntity<JWTAuthenticationResponse> createTokenAndLogin(@RequestBody JWTAuthenticationRequest request)
+	public ResponseEntity<JWTAuthenticationResponse> 
+		createTokenAndLogin(@RequestBody JWTAuthenticationRequest request)
 			throws Exception {
 		authenticate(request.getUsername(), request.getPassword());
 		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
@@ -47,19 +56,15 @@ public class AuthController {
 		return new ResponseEntity<JWTAuthenticationResponse>(response, HttpStatus.OK);
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
-		UserDTO registeredUser = userService.registerUser(userDTO);
-		return new ResponseEntity<UserDTO>(registeredUser, HttpStatus.CREATED);
-	}
-
+	// Authenticate User -> For LOGIN API
+	// Verify if the user even is registered and exists and give the token for maintaining session
 	private void authenticate(String username, String password) throws Exception {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-				username, password);
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
+					new UsernamePasswordAuthenticationToken(username, password);
 		try {
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		} catch (BadCredentialsException e) {
-			System.out.println("Invalid username or password!");
+			// System.out.println("Invalid username or password!");
 			throw new APIException("Invalid username or password!");
 		}
 

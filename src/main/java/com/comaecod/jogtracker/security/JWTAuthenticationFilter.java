@@ -29,7 +29,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 	private JWTTokenHelper jwtUtil;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+	protected void doFilterInternal(HttpServletRequest request, 
+			HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
 		final String authorizationHeader = request.getHeader("Authorization");
@@ -54,23 +55,28 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		// Once we have fetched the token, now we will validate.
-
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
 			if (jwtUtil.validateToken(jwt, userDetails)) {
 
-				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
+						new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
+				
 				usernamePasswordAuthenticationToken
 						.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+				
+				SecurityContextHolder
+				.getContext()
+				.setAuthentication(usernamePasswordAuthenticationToken);
+				
 			} else {
 				System.out.println("Invalid JWT token!");
 			}
 		} else {
-			System.out.println("Username is null or context is not null!");
+			// System.out.println("Username is null or context is not null!");
 		}
 		chain.doFilter(request, response);
 	}

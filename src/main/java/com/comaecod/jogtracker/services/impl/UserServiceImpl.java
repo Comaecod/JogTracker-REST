@@ -65,46 +65,58 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO updateUser(UserDTO userDTO, String userId) {
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = userRepo
+				.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
-		// Setting UserDTO to User (excluding 'id' field)
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		// user.setPassword(userDTO.getPassword());
 		user.setAbout(userDTO.getAbout());
 
 		User updatedUser = userRepo.save(user);
+		
 		return UserToDTO(updatedUser);
 
 	}
 
 	@Override
 	public UserDTO getUserById(String userId) {
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = userRepo
+				.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		
 		return UserToDTO(user);
 	}
 
 	@Override
 	public List<UserDTO> getAllUsers() {
 		List<User> users = userRepo.findAll();
-		List<UserDTO> userDTOs = users.stream().map(user -> UserToDTO(user)).collect(Collectors.toList());
+		
+		List<UserDTO> userDTOs = users
+				.stream()
+				.map(user -> UserToDTO(user))
+				.collect(Collectors.toList());
+		
 		return userDTOs;
 	}
 
 	@Override
 	public void deleteUser(String userId) {
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = userRepo
+				.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		
 		userRepo.delete(user);
 	}
 
 	@Override
 	public UserDTO registerUser(UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
-		
-		// Encoded the password
+
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
-		// 
+
 		Role role = roleRepo.findById(AppConstantsDefaults.ROLE_USER).get();
 		
 		user.getRoles().add(role);

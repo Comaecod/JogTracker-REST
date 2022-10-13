@@ -5,6 +5,7 @@ import java.util.List;
 import com.comaecod.jogtracker.payloads.UserDTO;
 
 public interface UserService {
+	
 	UserDTO registerUser(UserDTO userDTO);
 
 	UserDTO createUser(UserDTO userDTO);

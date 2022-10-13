@@ -22,13 +22,14 @@ import com.comaecod.jogtracker.payloads.UserDTO;
 import com.comaecod.jogtracker.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/users/")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	// POST -> Create User
+	// POST -> Create User -> ONLY ADMIN
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/")
 	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
 		UserDTO createdUser = userService.createUser(userDTO);
@@ -43,8 +44,7 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
-	// ADMIN
-	// DELETE -> Delete User
+	// DELETE -> Delete User -> ONLY ADMIN
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userId) {
@@ -53,13 +53,14 @@ public class UserController {
 				HttpStatus.OK);
 	}
 
-	// GET -> Get All Users
+	// GET -> Get All Users -> ONLY ADMIN
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/")
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 
-	// GET -> Get Single User
+	// GET -> Get Single User by ID
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDTO> getSingleUsers(@PathVariable String userId) {
 		return ResponseEntity.ok(userService.getUserById(userId));

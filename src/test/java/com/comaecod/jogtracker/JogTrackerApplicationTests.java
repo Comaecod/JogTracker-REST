@@ -19,8 +19,8 @@ class JogTrackerApplicationTests {
 	public void repoTest() {
 		String className = userRepo.getClass().getName();
 		String packageName = userRepo.getClass().getPackageName();
-		System.out.println("@comaecod" + className);
-		System.out.println("@comaecod" + packageName);
+		System.out.println("@comaecod: " + className);
+		System.out.println("@comaecod: " + packageName);
 	}
 
 }

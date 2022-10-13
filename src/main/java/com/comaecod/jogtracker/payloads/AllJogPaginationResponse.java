@@ -10,10 +10,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AllJogPaginationResponse {
+	
 	private List<JogDTO> content;
+	
 	private int pageNumber;
+	
 	private int pageSize;
+	
 	private long totalRecords;
+	
 	private int totalPages;
+	
 	private boolean lastPage;
 }

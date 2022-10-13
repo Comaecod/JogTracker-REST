@@ -25,6 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Jog {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer jogId;

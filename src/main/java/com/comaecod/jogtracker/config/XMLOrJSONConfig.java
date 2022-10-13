@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+// Content Configuration for all APIs JSON/XML
 @Configuration
 public class XMLOrJSONConfig implements WebMvcConfigurer {
 

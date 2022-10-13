@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class IntakeDTO {
+	
 	private int id;
 
 	@Min(value = 10, message = "Energy should be atleast 10 calories!")
@@ -26,5 +27,6 @@ public class IntakeDTO {
 
 	@NotEmpty(message = "Type of food must not be empty!")
 	private String food;
+	
 	private Date date;
 }

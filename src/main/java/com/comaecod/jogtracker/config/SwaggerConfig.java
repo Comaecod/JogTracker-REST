@@ -1,6 +1,7 @@
 package com.comaecod.jogtracker.config;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -30,21 +31,11 @@ public class SwaggerConfig {
 	}
 	
 	private List<SecurityContext> securityContexts() {
-		return Arrays.asList(SecurityContext.builder().securityReferences(securityReferences()).build());
-	}
-	
-	@Bean
-	public Docket api() {
-				
-		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(getInfo())
-				.securityContexts(securityContexts())
-				.securitySchemes(Arrays.asList(apiKeys()))
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
-	}
+		return Arrays
+				.asList(SecurityContext.builder()
+				.securityReferences(securityReferences())
+				.build());
+	}	
 
 	private ApiInfo getInfo() {
 		return new ApiInfo("JogTracker(REST)", 
@@ -54,6 +45,20 @@ public class SwaggerConfig {
 				new Contact("Vishnu","vishnu.com", "vishnuthecoder@gmail.com"), 
 				"License of @comaecod", 
 				"API License api.comaecod",
-				java.util.Collections.EMPTY_LIST);
+				Collections.emptyList());
+	}
+	
+	// Swagger Configuration
+	@Bean
+	public Docket api() {
+		
+		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(getInfo())
+				.securityContexts(securityContexts())
+				.securitySchemes(Arrays.asList(apiKeys()))
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
 	}
 }

@@ -34,7 +34,11 @@ public class JWTTokenHelper {
 
 	// For extracting any info from the token we would need the JWT_SECRET key
 	private Claims extractAllClaims(String token) {
-		return Jwts.parser().setSigningKey(AppConstantsDefaults.JWT_SECRET).parseClaimsJws(token).getBody();
+		return Jwts
+				.parser()
+				.setSigningKey(AppConstantsDefaults.JWT_SECRET)
+				.parseClaimsJws(token)
+				.getBody();
 	}
 
 	// Check if the token has expired
@@ -56,9 +60,13 @@ public class JWTTokenHelper {
 	 */
 	private String createToken(Map<String, Object> claims, String subject) {
 
-		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+		return Jwts.builder()
+				.setClaims(claims)
+				.setSubject(subject)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * AppConstantsDefaults.JWT_TOKEN_VALIDITY))
-				.signWith(SignatureAlgorithm.HS256, AppConstantsDefaults.JWT_SECRET).compact();
+				.signWith(SignatureAlgorithm.HS256, AppConstantsDefaults.JWT_SECRET)
+				.compact();
 	}
 
 	// Validate token

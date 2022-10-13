@@ -36,16 +36,25 @@ import lombok.Setter;
 @Setter
 public class User implements UserDetails {
 
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
-			@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
+	@GenericGenerator(name = "UUID", 
+					  strategy = "org.hibernate.id.UUIDGenerator", 
+					  parameters = {
+							  	@Parameter(name = "uuid_gen_strategy_class", 
+							  			   value = "org.hibernate.id.uuid.CustomVersionOneStrategy") 
+							  	   })
 	private String id;
+
 	@Column(name = "name_of_user", nullable = false, length = 100)
 	private String name;
+
 	private String email;
+
 	private String password;
+
 	private String about;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

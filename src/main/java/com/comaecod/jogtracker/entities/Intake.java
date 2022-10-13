@@ -20,14 +20,15 @@ public class Intake {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private int energy;
+	
 	private int quantity;
+	
 	private String food;
-	private Date date;
+	
+	private Date date;	
 
 	@ManyToOne
 	private Jog jog;
-
-	// TODO: @ManyToOne
-	// private User user;
 }
