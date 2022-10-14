@@ -1,0 +1,1246 @@
+{
+	"info": {
+		"_postman_id": "9037398c-67c0-4de9-b815-92541a2b96b8",
+		"name": "JogTracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Shivendu Saurabh\",\r\n    \"email\": \"shivendusaurabh@gmail.com\",\r\n    \"password\": \"Password@05\",\r\n    \"about\": \"Chartered Accountant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/c0a80067-83d1-148b-8183-d124c0ea0000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"c0a80067-83d1-148b-8183-d124c0ea0000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/c0a80067-83d1-148b-8183-d128b4af0004",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"c0a80067-83d1-148b-8183-d128b4af0004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anuj Singh\",\r\n    \"email\": \"anujsingh@gmail.com\",\r\n    \"password\": \"Password@02\",\r\n    \"about\": \"Front-end Developer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/c0a80067-83d1-148b-8183-d1260c530001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"c0a80067-83d1-148b-8183-d1260c530001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Divyansh\",\r\n    \"email\": \"divyansh@gmail.com\",\r\n    \"password\": \"Password@04\",\r\n    \"about\": \"Fullstack Developer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"anujsingh@gmail.com\",\r\n    \"password\": \"Password@02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Add Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryTitle\": \"Kolkata\",\r\n    \"categoryDescription\": \"West Bengal, India\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryTitle\": \"New Delhi\",\r\n    \"categoryDescription\": \"New Delhi, India\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JogData",
+			"item": [
+				{
+					"name": "Create JogData",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\": \"Marine Drive\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/c0a80067-83d1-148b-8183-d124c0ea0000/category/2/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"c0a80067-83d1-148b-8183-d124c0ea0000",
+								"category",
+								"2",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update JogData",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"locationImg\": \"Bhuleshwar.png\",\r\n    \"location\": \"Bhuleshwar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get JogData By User - Default Pagination",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user/c0a80067-83d1-148b-8183-d124c0ea0000/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"c0a80067-83d1-148b-8183-d124c0ea0000",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get JogData By User - Pagination Params",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user/c0a80067-83d1-148b-8183-d124c0ea0000/jogdata?pageNumber=1&pageSize=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"c0a80067-83d1-148b-8183-d124c0ea0000",
+								"jogdata"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData - Default Pagination + Sort",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData By Keyword",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/search/dad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"search",
+								"dad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData - Pagination Params",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata?pageNumber=1&pageSize=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData - Pagination Params + Sort Params",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata?pageNumber=0&pageSize=20&sortBy=location&sortDirection=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								},
+								{
+									"key": "sortBy",
+									"value": "location"
+								},
+								{
+									"key": "sortDirection",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete JogData",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get JogData By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get JogData By Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/category/1/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"1",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image Upload",
+			"item": [
+				{
+					"name": "Upload Location Image for Jogdata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Code/STS Workspace/JogTracker/sampleImages/6jhXoH1juas.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/image/upload/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"image",
+								"upload",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/jogdata/image/eb203307-b3de-498d-a46c-4d36ba99694c.jpg",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"image",
+								"eb203307-b3de-498d-a46c-4d36ba99694c.jpg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Intake",
+			"item": [
+				{
+					"name": "Add Intake",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"energy\": 100,\r\n    \"quantity\": 10,\r\n    \"food\": \"Energy Drink\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata/1/intake",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata",
+								"1",
+								"intake"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Intake",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/intake/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"intake",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Basic Auth",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Password@01",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vishnuthecoder@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Password@01",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vishnuthecoder@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JWT",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"hinaraiba@gmail.com\",\r\n    \"password\": \"Password@01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hina Raiba\",\r\n    \"email\": \"hinaraiba@gmail.com\",\r\n    \"password\": \"Password@03\",\r\n    \"about\": \"Content Writer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All JogData",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaW5hcmFpYmFAZ21haWwuY29tIiwiZXhwIjoxNjY1NjE4MDMzLCJpYXQiOjE2NjU2MDAwMzN9.e4kdzqwXvz89naiZ6mdrhkWRkfkyGnkfFV0qlQ1HZJQ",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/jogdata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jogdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaW5hcmFpYmFAZ21haWwuY29tIiwiZXhwIjoxNjY1NjE4MDMzLCJpYXQiOjE2NjU2MDAwMzN9.e4kdzqwXvz89naiZ6mdrhkWRkfkyGnkfFV0qlQ1HZJQ",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2OTE4ODAsImlhdCI6MTY2NTY3Mzg4MH0.M175RpX5uEDrKJJHc1pEc3kwhqoeOFY_9CpnUbmvfXo",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/c0a80067-83d1-148b-8183-d12685470003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"c0a80067-83d1-148b-8183-d12685470003"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Swagger",
+			"item": [
+				{
+					"name": "Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v3/api-docs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v3",
+								"api-docs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/swagger-ui/index.html",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"swagger-ui",
+								"index.html"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JSON or XML",
+			"item": [
+				{
+					"name": "Get All Users - JSON",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/?mediaType=json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "mediaType",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users - XML",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aXNobnV0aGVjb2RlckBnbWFpbC5jb20iLCJleHAiOjE2NjU2NzkzOTAsImlhdCI6MTY2NTY2MTM5MH0.6eYMuayu0P9xTngc8BN1amTxJ50bjorOaJZPmfXc7o4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/?mediaType=xml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "mediaType",
+									"value": "xml"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
