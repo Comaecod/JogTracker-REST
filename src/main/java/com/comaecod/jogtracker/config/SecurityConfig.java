@@ -105,7 +105,6 @@ public class SecurityConfig {
 			"/swagger-resources/**",
 			"/swagger-ui/**",
 			"/webjars/**",
-			"/api/jogdata/image/**"
 	};
 
 	@Autowired
@@ -133,14 +132,16 @@ public class SecurityConfig {
 		// .permitAll()
 		.anyRequest()
 		.authenticated()
-		.and()
-		.exceptionHandling()
-		.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-		.and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		// .and()																// Basic Authentication
+		// .httpBasic() 														// Basic Authentication
+		.and() 																	// JWT
+		.exceptionHandling()													// JWT
+		.authenticationEntryPoint(jwtAuthenticationEntryPoint)					// JWT
+		.and()																	// JWT
+		.sessionManagement()													// JWT
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);				// JWT
 
-		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT
 		
 		http.authenticationProvider(daoAuthenticationProvider());
 		
@@ -160,6 +161,7 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
+	// JWT
 	@Bean
 	public AuthenticationManager authenticationManagerBean
 		(AuthenticationConfiguration authenticationConfiguration) throws Exception {

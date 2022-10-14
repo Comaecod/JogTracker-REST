@@ -59,6 +59,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO createUser(UserDTO userDTO) {
 		User user = DTOToUser(userDTO);
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		Role role = roleRepo.findById(AppConstantsDefaults.ROLE_USER).get();
+		user.getRoles().add(role);
 		User savedUser = userRepo.save(user);
 		return UserToDTO(savedUser);
 	}
@@ -113,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO registerUser(UserDTO userDTO) {
-		User user = modelMapper.map(userDTO, User.class);
+		User user = DTOToUser(userDTO);
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -123,7 +126,7 @@ public class UserServiceImpl implements UserService {
 		
 		User newUser = userRepo.save(user);
 		
-		return modelMapper.map(newUser, UserDTO.class);
+		return UserToDTO(newUser);
 	}
 
 }

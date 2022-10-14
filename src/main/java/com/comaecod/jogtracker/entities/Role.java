@@ -15,4 +15,8 @@ public class Role {
 	private Integer id;
 	
 	private String name;
+	
+	// TODO
+	// @ManyToOne
+	// private User user;
 }

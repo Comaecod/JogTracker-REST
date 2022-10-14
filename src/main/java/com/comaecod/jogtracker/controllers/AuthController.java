@@ -30,6 +30,7 @@ public class AuthController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	// JWT
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
