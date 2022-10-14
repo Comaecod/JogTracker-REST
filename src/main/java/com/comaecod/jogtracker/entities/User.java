@@ -38,14 +38,13 @@ public class User implements UserDetails {
 
 	// @Id
 	// @GeneratedValue(strategy = GenerationType.AUTO)
+
+	// @Id
+	// private String id = (String)UUID.randomUUID();
 	@Id
 	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", 
-					  strategy = "org.hibernate.id.UUIDGenerator", 
-					  parameters = {
-							  	@Parameter(name = "uuid_gen_strategy_class", 
-							  			   value = "org.hibernate.id.uuid.CustomVersionOneStrategy") 
-							  	   })
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+			@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
 	private String id;
 
 	@Column(name = "name_of_user", nullable = false, length = 100)
@@ -60,9 +59,10 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Jog> jogs = new ArrayList<>();
 
-	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // TODO
-	 @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	 @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
+	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
+	// FetchType.LAZY) // TODO
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
 
 	@Override
